@@ -3,13 +3,10 @@ CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
 
-SOURCES += main.cpp \
-    matrix.cpp \
-    base_iterator.cpp \
-    allocation.cpp
+SOURCES += main.cpp
 
 HEADERS += \
-    matrix.h \
     base_iterator.h \
-    allocation.h \
-    exceptions.h
+    exceptions.h \
+    matrix_iterator.h \
+    const_matrix_iterator.h
