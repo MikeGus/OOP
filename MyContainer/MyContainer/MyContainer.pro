@@ -15,4 +15,5 @@ HEADERS += \
     basic_operations.h \
     base_iterator_impl.h \
     const_matrix_iterator_impl.h \
-    matrix_iterator_impl.h
+    matrix_iterator_impl.h \
+    matrix_impl.h

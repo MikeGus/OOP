@@ -28,9 +28,9 @@ namespace my_cont {
 
 
     template<class Type>
-    base_iterator<Type>& base_iterator<Type>::operator ++(int)
+    base_iterator<Type> base_iterator<Type>::operator ++(int)
     {
-        base_iterator tmp(this);
+        base_iterator tmp(*this);
         ptr++;
         return tmp;
     }
@@ -45,9 +45,9 @@ namespace my_cont {
 
 
     template<class Type>
-    base_iterator<Type>& base_iterator<Type>::operator --(int)
+    base_iterator<Type> base_iterator<Type>::operator --(int)
     {
-        base_iterator tmp(this);
+        base_iterator tmp(*this);
         ptr--;
         return tmp;
     }

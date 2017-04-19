@@ -6,13 +6,11 @@
 #include <string>
 
 
-class base_exception: public std::exception {
-    protected:
-        std::string message;
-
+class base_exception: public std::exception
+{
     public:
         explicit base_exception() = default;
-        explicit base_exception(const std::string& msg)
+        explicit base_exception(const std::string msg)
         {
             message = msg;
         }
@@ -24,10 +22,14 @@ class base_exception: public std::exception {
         {
             message = other.message;
         }
+
+    protected:
+        std::string message;
 };
 
 
-class bad_alloc: public base_exception {
+class bad_alloc: public base_exception
+{
     public:
         explicit bad_alloc() = default;
         explicit bad_alloc(const std::string& msg): base_exception(msg) {}
@@ -45,7 +47,8 @@ class bad_alloc: public base_exception {
 };
 
 
-class out_of_range: public base_exception {
+class out_of_range: public base_exception
+{
     public:
         explicit out_of_range() = default;
         explicit out_of_range(const std::string& msg): base_exception(msg) {}
@@ -63,7 +66,8 @@ class out_of_range: public base_exception {
 };
 
 
-class logical_error: public base_exception {
+class logical_error: public base_exception
+{
     public:
         explicit logical_error() = default;
         explicit logical_error(const std::string& msg): base_exception(msg) {}
@@ -79,4 +83,23 @@ class logical_error: public base_exception {
             }
         }
 };
+
+class reading_error: public base_exception
+{
+    public:
+        explicit reading_error() = default;
+        explicit reading_error(const std::string& msg): base_exception(msg) {}
+        explicit reading_error(const char* msg): base_exception(msg) {}
+
+        virtual const char* what() const noexcept
+        {
+            if (message.empty()) {
+                return "Reading error.";
+            }
+            else {
+                return message.c_str();
+            }
+        }
+};
+
 #endif // EXCEPTIONS_H

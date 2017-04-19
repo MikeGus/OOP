@@ -9,10 +9,6 @@ namespace my_cont {
     template<class Type>
     class const_matrix_iterator : public base_iterator<Type>
     {
-
-        private:
-            const_matrix_iterator(Type*);
-
         public:
             const_matrix_iterator(const matrix_iterator<Type>& other);
 
@@ -20,6 +16,9 @@ namespace my_cont {
             const Type* operator ->();
 
             friend class matrix<Type>;
+
+        private:
+            const_matrix_iterator(Type*);
 
     };
 
