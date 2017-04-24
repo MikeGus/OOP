@@ -5,21 +5,34 @@
 #include "matrix_iterator.h"
 #include "exceptions.h"
 #include "basic_operations.h"
+#include "base_matrix.h"
 
 #include <iostream>
 #include <cstring>
 #include <ios>
+#include <cmath>
 
 namespace my_cont {
 
     typedef size_t size_type;
 
     template<class Type>
-    class matrix
+    class matrix: public base_matrix
     {
+        class proxy
+        {
+            public:
+                proxy(size_type init_columns, Type* init_data);
+
+                Type& operator[](size_type column);
+                const Type& operator[](size_type column) const;
+
+            private:
+                size_type col_count;
+                Type* data;
+        };
 
         public:
-
 
             typedef matrix_iterator<Type> matrix_iterator;
             typedef const_matrix_iterator<Type> const_matrix_iterator;
@@ -31,19 +44,11 @@ namespace my_cont {
             matrix&  operator=(const matrix& other);
             ~matrix();
 
-            size_type get_rows() const;
-            size_type get_columns();
-
             matrix_iterator begin();
             const_matrix_iterator cbegin() const;
 
             matrix_iterator end();
             const_matrix_iterator cend() const;
-
-            bool is_square() const;
-            bool can_add(const matrix& other) const;
-            bool can_multiply(const matrix& other) const;
-            bool can_be_multiplied_by(const matrix& other) const;
 
             matrix operator+(const matrix& other) const;
             matrix& operator+=(const matrix& other);
@@ -52,14 +57,14 @@ namespace my_cont {
             matrix& operator-=(const matrix& other);
 
             matrix operator*(const matrix& other) const;
-            matrix operator*(const double number) const;
-            matrix operator*(const int number) const;
+            matrix operator*(const Type number) const;
             matrix& operator*=(const matrix& other);
-            matrix& operator*=(const double number);
-            matrix& operator*=(const int number);
+            matrix& operator*=(const Type number);
 
             matrix transposition() const;
+            matrix inverse() const;
             matrix in_power_of(const unsigned number) const;
+            Type determinant() const;
 
             template<class T>
             friend std::istream& operator>>(std::istream& source, matrix<T>& matr);
@@ -71,11 +76,14 @@ namespace my_cont {
             void print(std::ostream& destination) const;
 
             const Type& at(const size_type row, const size_type column) const;
+            Type& at(const size_type row, const size_type column);
+
+            proxy operator[](const size_type row);
+            const proxy operator[](const size_type row) const;
 
     private:
-            Type* data;
-            size_type rows;
-            size_type columns;
+            Type* find_column(size_type column) const;
+            Type* data = nullptr;
     };
 }
 

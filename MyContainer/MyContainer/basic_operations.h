@@ -39,7 +39,7 @@ namespace my_cont {
     }
 
     template<class Type>
-    void multiply(matrix_iterator<Type> result_begin, matrix_iterator<Type> result_end, const int value)
+    void multiply(matrix_iterator<Type> result_begin, matrix_iterator<Type> result_end, const Type& value)
     {
         for (auto it = result_begin; it != result_end; ++it) {
             *it *= value;
@@ -47,10 +47,20 @@ namespace my_cont {
     }
 
     template<class Type>
-    void multiply(matrix_iterator<Type> result_begin, matrix_iterator<Type> result_end, const double value)
+    void swap(matrix_iterator<Type> first, matrix_iterator<Type> second)
     {
-        for (auto it = result_begin; it != result_end; ++it) {
-            *it *= value;
+        Type buf = *first;
+        *first = *second;
+        *second = buf;
+    }
+
+    template<class Type>
+    void swap(matrix_iterator<Type> first_begin, matrix_iterator<Type> first_end,\
+              matrix_iterator<Type> second_begin)
+    {
+        matrix_iterator<Type> second_it = second_begin;
+        for (matrix_iterator<Type> first_it = first_begin; first_it != first_end; ++first_it, ++second_it) {
+            swap(first_it, second_it);
         }
     }
 }

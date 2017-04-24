@@ -22,6 +22,7 @@ int main(void)
         std::cout << "SECOND EXCEPTION: " << e.what() << std::endl;
     }
 
+    std::cin.clear();
     try {
         std::ifstream stream;
         std::ifstream stream_2;
@@ -46,7 +47,7 @@ int main(void)
 
     my_cont::matrix<int> matrix_3;
     try {
-        matrix_3 = matrix_1 * matrix_2;
+        matrix_3 = 5 * matrix_1 * matrix_2;
         std::cout << "MATRIX:\n" << matrix_3 << std::endl;
     }
     catch (logical_error& e) {
@@ -54,19 +55,31 @@ int main(void)
     }
 
     try {
-        std::cout << "AT [0,0]: " << matrix_3.at(0,0) << std::endl;
+        std::cout << "AT [0,0]: " << matrix_3[0][0] << std::endl;
     }
     catch (logical_error& e) {
         std::cout << "SIXTH EXCEPTION: "<< e.what() << std::endl;
     }
 
     try {
-        std::cout << "AT [250,0]: " << matrix_3.at(250,0);
+        std::cout << "AT [250,0]: " << matrix_3[250][0];
     }
     catch (out_of_range& e) {
         std::cout << "SEVENTH EXCEPTION: "<< e.what() << std::endl;
     }
 
+    try {
+        my_cont::matrix<double> mat(3,3);
+        std::cin >> mat;
+        std::cout << "MATRIX INVERSE:\n" << mat.inverse();
+        std::cout << "CHECK:\n" << mat.inverse() * mat;
+    }
+    catch (logical_error& e){
+        std::cout << e.what() << std::endl;
+    }
+    catch (reading_error& e){
+        std::cout << e.what() << std::endl;
+    }
 
     return 0;
 }

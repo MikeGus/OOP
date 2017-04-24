@@ -14,6 +14,8 @@ namespace my_cont {
 
     template<class Type>
     class matrix;
+
+    class base_matrix;
 }
 
 #endif // MY_CONT_NAMESPACE_H
