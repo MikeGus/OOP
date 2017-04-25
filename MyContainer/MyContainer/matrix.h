@@ -73,8 +73,6 @@ namespace my_cont {
             template<class T>
             friend std::ostream& operator<<(std::ostream& destination, const matrix<T>& matr);
 
-            void print(std::ostream& destination) const;
-
             const Type& at(const size_type row, const size_type column) const;
             Type& at(const size_type row, const size_type column);
 

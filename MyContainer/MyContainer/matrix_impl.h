@@ -278,14 +278,6 @@ namespace my_cont {
         return destination;
     }
 
-
-    template<class Type>
-    void matrix<Type>::print(std::ostream& destination) const
-    {
-        destination << *this;
-    }
-
-
     template<class Type>
     const Type& matrix<Type>::at(const size_type row, const size_type column) const
     {
