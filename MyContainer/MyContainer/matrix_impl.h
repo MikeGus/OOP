@@ -159,8 +159,8 @@ namespace my_cont {
             throw logical_error("Column number of this first object must match row number of second!");
         }
 
-        matrix<Type> buffer = other.transposition();
-        matrix<Type> result = matrix(rows, other.columns);
+        matrix<Type> buffer(other.transposition());
+        matrix<Type> result(matrix(rows, other.columns));
 
         for (size_type i = 0; i < result.rows; ++i) {
             for (size_type j = 0; j < result.columns; ++j) {
@@ -178,7 +178,7 @@ namespace my_cont {
     }
 
     template<class Type>
-    matrix<Type> matrix<Type>::operator*(const Type number) const
+    matrix<Type> matrix<Type>::operator*(const Type& number) const
     {
         matrix<Type> result(*this);
         multiply(result.begin(), result.end(), number);
@@ -206,7 +206,7 @@ namespace my_cont {
     }
 
     template<class Type>
-    matrix<Type>& matrix<Type>::operator*=(const Type number)
+    matrix<Type>& matrix<Type>::operator*=(const Type& number)
     {
         multiply(begin(), end(), number);
 
@@ -232,7 +232,7 @@ namespace my_cont {
     template<class Type>
     matrix<Type> matrix<Type>::transposition() const
     {
-        matrix<Type> result = matrix(columns, rows);
+        matrix<Type> result(matrix(columns, rows));
         for (size_type i = 0; i < result.rows; ++i) {
             for (size_type j = 0; j < result.columns; ++j) {
                 result.data[i * result.columns + j] = data[j * columns + i];

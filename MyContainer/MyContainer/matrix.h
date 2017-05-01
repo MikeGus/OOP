@@ -37,10 +37,10 @@ namespace my_cont {
             typedef matrix_iterator<Type> matrix_iterator;
             typedef const_matrix_iterator<Type> const_matrix_iterator;
 
-            matrix() = default;
-            matrix(const size_type init_rows, const size_type init_columns);
+            explicit matrix() = default;
+            explicit matrix(const size_type init_rows, const size_type init_columns);
             matrix(const matrix<Type>& other);
-            matrix(matrix&& other);
+            explicit matrix(matrix&& other);
             matrix&  operator=(const matrix& other);
             ~matrix();
 
@@ -57,9 +57,9 @@ namespace my_cont {
             matrix& operator-=(const matrix& other);
 
             matrix operator*(const matrix& other) const;
-            matrix operator*(const Type number) const;
+            matrix operator*(const Type& number) const;
             matrix& operator*=(const matrix& other);
-            matrix& operator*=(const Type number);
+            matrix& operator*=(const Type& number);
 
             matrix transposition() const;
             matrix inverse() const;
